@@ -3,4 +3,30 @@
   <groupId>qrone-util</groupId>
   <artifactId>qrone-util</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  
+  <distributionManagement>
+    <repository>
+      <id>qrone</id>
+      <name>qrone.org Repository</name>
+      <url>dav:http://mvn.qrone.org</url>
+    </repository>
+  </distributionManagement>
+  
+  
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <scriptSourceDirectory>scripts</scriptSourceDirectory>
+    <testSourceDirectory>test</testSourceDirectory>
+    
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+            <source>1.6</source>
+            <target>1.6</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>

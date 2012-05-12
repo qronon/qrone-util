@@ -2,7 +2,9 @@ package org.qrone.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -12,6 +14,10 @@ public class QueryString {
 
 	private Map<String, List<String>> parameters;
 
+	public QueryString() {
+		parameters = new TreeMap<String, List<String>>();
+	}
+	
 	public QueryString(String qs) {
 		parameters = new TreeMap<String, List<String>>();
 		if(qs == null) return;
@@ -44,6 +50,10 @@ public class QueryString {
 			list.add(value);
 		}
 	}
+	
+	public String get(String name){
+		return getParameter(name);
+	}
 
 	public String getParameter(String name) {
 		List<String> values = parameters.get(name);
@@ -67,4 +77,36 @@ public class QueryString {
 	public Map<String, List<String>> getParameterMap() {
 		return parameters;
 	}
+	
+	public void add(String name, String value){
+		List<String> values = parameters.get(name);
+		if(values == null){
+			values = new ArrayList<String>();
+			parameters.put(name, values);
+		}
+		values.add(value);
+	}
+	
+	public String toString(){
+		StringBuilder s = new StringBuilder();
+		for (Iterator<Map.Entry<String, List<String>>> iter = parameters.entrySet().iterator(); iter.hasNext();) {
+			Map.Entry<String, List<String>> entry = iter.next();
+			List<String> l = entry.getValue();
+			
+			try{
+				for (String string : l) {
+					s.append("&");
+					s.append(URLEncoder.encode(entry.getKey(),"utf8"));
+					s.append("=");
+					s.append(URLEncoder.encode(string,"utf8"));
+				}
+			}catch(UnsupportedEncodingException ex){}
+		}
+		if(s.length() > 0)
+			return s.substring(1).toString();
+		return "";
+	}
+	
+	
+	
 }

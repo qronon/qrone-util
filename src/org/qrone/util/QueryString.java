@@ -18,6 +18,22 @@ public class QueryString {
 	public QueryString() {
 		parameters = new TreeMap<String, List<String>>();
 	}
+
+	public QueryString(Map map) {
+		parameters = new TreeMap<String, List<String>>();
+		if(map == null) return;
+		
+		for (Object key : map.keySet()) {
+			Object value = map.get(key);
+			if(value instanceof List){
+				for (Object item : (List)value) {
+					add(key.toString(), item.toString());
+				}
+			}else{
+				add(key.toString(), value.toString());
+			}
+		}
+	}
 	
 	public QueryString(String qs) {
 		parameters = new TreeMap<String, List<String>>();

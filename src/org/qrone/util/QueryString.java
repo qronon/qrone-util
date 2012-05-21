@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -76,6 +77,18 @@ public class QueryString {
 
 	public Map<String, List<String>> getParameterMap() {
 		return parameters;
+	}
+	
+	public Map<String, Object> getParameterMapSingle() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		for (Map.Entry<String, List<String>> entry : parameters.entrySet()) {
+			if(entry.getValue().size() == 1){
+				map.put(entry.getKey(), entry.getValue().get(0));
+			}else if(entry.getValue().size() > 1){
+				map.put(entry.getKey(), entry.getValue());
+			}
+		}
+		return map;
 	}
 	
 	public void add(String name, String value){

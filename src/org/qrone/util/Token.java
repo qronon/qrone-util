@@ -51,6 +51,11 @@ public class Token {
 		return null;
 	}
 	
+	public static String uniqueid(){
+		return Hex.long2hex(System.currentTimeMillis())
+				+ Hex.double2hex(Math.random());
+	}
+	
 	public boolean isAnonymous(){
 		return id.equals("X");
 	}

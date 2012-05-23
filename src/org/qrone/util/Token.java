@@ -68,6 +68,10 @@ public class Token {
 		return id;
 	}
 	
+	public String getUniqueId(){
+		return Hex.double2hex(rand) + Hex.long2hex(timestamp);
+	}
+	
 	public long getTimestamp(){
 		return timestamp;
 	}
